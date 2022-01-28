@@ -8,24 +8,23 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
 function App() {
-
   const [sideDrawer, setSideDrawer] = useState(false);
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {}, [sideDrawer]);
+
   const showSideDrawer = () => setSideDrawer(true);
   const closeSideDrawer = () => setSideDrawer(false);
 
-  useEffect(() => {})
-
-  useEffect(() => {}, [sideDrawer])
-
   const suma = (a, b) => {
-    return setMessage('Suma: ' + a + b);
-  }
+    const msg = `Suma: ${a + b}`;
+    return setMessage(msg);
+  };
 
   const resta = (a, b) => {
-    setMessage(a-b)
-    return a - b;
-  }
+    const msg = `Resta: ${a - b}`;
+    return setMessage(msg);
+  };
 
   return (
     <div className="App">
@@ -34,10 +33,14 @@ function App() {
         {!sideDrawer ? (
           <HamburguerWidget showSideDrawer={showSideDrawer} icon={faBars} />
         ) : (
-          <SideDrawer closeSideDrawer={closeSideDrawer} suma={suma} resta={resta} />
+          <SideDrawer
+            closeSideDrawer={closeSideDrawer}
+            suma={suma}
+            resta={resta}
+          />
         )}
       </header>
-        {message && <p>Hola {message}</p>}
+      {message && <p>Hola, {message}</p>}
     </div>
   );
 }
